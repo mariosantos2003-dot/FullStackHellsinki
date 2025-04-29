@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 const App = () => {
+  //Array con las anecdotas
   const anecdotes = [
     'If it hurts, do it more often.',
     'Adding manpower to a late software project makes it later!',
@@ -12,16 +13,51 @@ const App = () => {
     'The only way to go fast, is to go well.'
   ]
 
+  //Estado para el componente
+  //selected: el índice de la anécdota seleccionada
   const [selected, setSelected] = useState(0)
+  //votes: el número de votos para cada anécdota
+  //setVotes: función para actualizar el estado de los votos
+  //new Array(anecdotes.length).fill(0): crea un array de longitud igual a la cantidad de anécdotas y lo llena con ceros
+  const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0))
 
+  //Funcion para mostrar las anecdotas de manera aleatoria, se genera un numero random entre 0 y la longitud del array de anecdotas
   const randomAnecdote = () => {
     setSelected(Math.floor(Math.random() * anecdotes.length))
+  }
+  
+  //Funcion para votar la anecdotas
+  const voteAnecdote = () => {
+    // Se hace una copia del array de votos
+    const copy = [...votes]
+    // Se le suma 1 al voto de la anecdotas seleccionada
+    copy[selected] += 1
+    // Se actualiza el estado de los votos
+    setVotes(copy)
+  }
+
+  //Funcion para obtener el indice de la anecdotas con mas votos
+  const getMostVotedIndex = () => {
+    // Se busca el indice del maximo valor en el array de votos
+    // Math.max(...votes): devuelve el maximo valor del array de votos
+    return votes.indexOf(Math.max(...votes))
   }
 
   return (
     <div>
-      {anecdotes[selected]}
-      <button onClick={randomAnecdote}> Next Anecdote</button>
+      <h1>Anecdote of the day</h1>
+      <div>
+        <p>{anecdotes[selected]}</p>
+        <p>has {votes[selected]} votes</p>
+        <button onClick={voteAnecdote}>Vote</button>
+        <button onClick={randomAnecdote}>Next Anecdote</button>
+      </div>
+      
+      <h1>Anecdote with most votes</h1>
+      <div>
+        <p>{anecdotes[getMostVotedIndex()]}</p>
+        <p>has {votes[getMostVotedIndex()]} votes</p>
+      </div>
     </div>
   )
 }
