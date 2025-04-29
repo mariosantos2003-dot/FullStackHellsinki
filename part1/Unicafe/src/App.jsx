@@ -12,16 +12,16 @@ const Statistics = (props) => {
     <div>
       <h1>Statistics</h1>
 
-     <li>
-      <ul>
+     <table>
+      <tbody>
         <StatisticsLine text="good" value={props.good} />
         <StatisticsLine text="neutral" value={props.neutral} />
         <StatisticsLine text="bad" value={props.bad} />
         <StatisticsLine text="all" value={props.total} />
         <StatisticsLine text="average" value={props.average} />
         <StatisticsLine text="positive" value={props.percentage} />
-      </ul>
-     </li>
+      </tbody>
+     </table>
     </div>
     
   )
