@@ -8,7 +8,7 @@ const App = () => {
   const [bad, setBad] = useState(0);
   const [total, setTotal] = useState(0);
   const percentage = (good / total);
-
+  const average = ((good +1 * 1 + neutral * 0 + bad * -1) / total);
 
   const handleGood = () => {
     console.log(good);
@@ -30,6 +30,7 @@ const App = () => {
 
 
   return (
+    
     <div>
       <h1>Give Feedback</h1>
       <button onClick={handleGood}>Good</button>
@@ -43,7 +44,7 @@ const App = () => {
           Bad {bad}
           All {total}
           Positive {percentage}
-          Average 
+          Average  {average}
         </p>
       </div>
     </div>
