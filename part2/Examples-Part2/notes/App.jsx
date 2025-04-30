@@ -1,7 +1,11 @@
-//Creamos el componente con los props del main
-const App = (props) => {
-  //Definimos la constants notes
-  const { notes } = props;
+//Importamos el componente note que hemos movido a otro archivo
+import Note from "./Note";
+
+
+//Creamos el componente con los props del main,como solo necesitamos las notes
+const App = ({notes}) => {
+  
+
 
   return (
     <div>
@@ -16,9 +20,10 @@ const App = (props) => {
       {/*Para hacerlo de manera mas practica, se utiliza el map*/}
       <ul>
         {/* Es necesario añadir el key para que se muestren los atributos */},
-        {notes.map((note) => (
-          <li key={note.id}>{note.content}</li>
-        ))}
+        {notes.map((note) => 
+        <Note key={note.id} note={note} />
+          
+        )}
       </ul>
     </div>
   );
