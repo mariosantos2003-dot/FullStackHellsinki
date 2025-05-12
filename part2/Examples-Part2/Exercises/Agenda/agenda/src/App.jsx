@@ -1,26 +1,33 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
-  ]) 
-  const [newName, setNewName] = useState('')
+  const [persons, setPersons] = useState([{ name: 'Arto Hellas' }]);
+  const [newName, setNewName] = useState('');
+  const [message, setMessage] = useState(''); // Estado para el mensaje
 
-  const addNumber = (event) =>{
+  const addNumber = (event) => {
     event.preventDefault();
-    const numberObject = {
-      name :newName,
-      id :persons.length + 1,
+
+    // Comprobar si el nombre ya existe
+    if (persons.some((person) => person.name === newName)) {
+      alert(`El nombre "${newName}" ya existe en la agenda.`);
+      return;
 
     }
-    setPersons(persons.concat(numberObject));
-    setNewName("");
 
-  }
+    const numberObject = {
+      name: newName,
+      id: persons.length + 1,
+    };
+
+    setPersons(persons.concat(numberObject));
+    setNewName('');
+    setMessage(''); // Limpiar el mensaje si se añade correctamente
+  };
+
   const handleNumberChange = (event) => {
-    console.log(event.target.value);
     setNewName(event.target.value);
-  }
+  };
 
   return (
     <div>
@@ -29,16 +36,15 @@ const App = () => {
         <input value={newName} onChange={handleNumberChange} />
         <button type="submit">Add Note</button>
       </form>
+      {message && <p style={{ color: 'red' }}>{message}</p>} {/* Mostrar mensaje */}
       <h2>Numbers</h2>
-      <p>
-        <ul>
-          {persons.map((person, index) => (
-            <li key={index}>{person.name}</li>
-          ))}
-        </ul>
-      </p>
+      <ul>
+        {persons.map((person, index) => (
+          <li key={index}>{person.name}</li>
+        ))}
+      </ul>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
